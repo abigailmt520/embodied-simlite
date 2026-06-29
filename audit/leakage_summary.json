@@ -1,0 +1,59 @@
+{
+  "slip_0.30": {
+    "slip": 0.3,
+    "budget": 2.281,
+    "thresh": 2.681,
+    "rows": {
+      "clean": {
+        "mi": 2.494,
+        "ci_red": false,
+        "c1_red": false
+      },
+      "L-1_full_leak": {
+        "mi": 4.039,
+        "ci_red": true,
+        "c1_red": true
+      },
+      "L-2_partial_leak": {
+        "mi": 3.251,
+        "ci_red": true,
+        "c1_red": false
+      },
+      "L-3_privileged": {
+        "mi": 3.068,
+        "ci_red": true,
+        "c1_red": false
+      }
+    }
+  },
+  "slip_0.05": {
+    "slip": 0.05,
+    "budget": 3.319,
+    "thresh": 3.719,
+    "rows": {
+      "clean": {
+        "mi": 2.819,
+        "ci_red": false,
+        "c1_red": false
+      },
+      "L-1_full_leak": {
+        "mi": 4.018,
+        "ci_red": true,
+        "c1_red": true
+      },
+      "L-2_partial_leak": {
+        "mi": 3.475,
+        "ci_red": false,
+        "c1_red": false
+      },
+      "L-3_privileged": {
+        "mi": 3.02,
+        "ci_red": false,
+        "c1_red": false
+      }
+    }
+  },
+  "gate_ci2_clean_green": true,
+  "gate_ci1_3leaks_red": true,
+  "slip005_L3_missed": true
+}

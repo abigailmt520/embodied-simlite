@@ -1,0 +1,14 @@
+# Embodied-SimLite · Python dependencies (platform core, non-ROS part)
+# Tested environment: Python 3.13; the versions below are minimums, newer versions are generally compatible.
+numpy>=1.24
+gymnasium>=0.29
+torch>=2.0
+stable-baselines3>=2.0
+fastapi>=0.110
+uvicorn>=0.27
+websockets>=12.0
+matplotlib>=3.7
+
+# —— ROS 2 bridge (ros_bridge.py) extra dependencies, install in an Ubuntu + ROS 2 environment —— #
+#   provided by the ROS 2 distribution: rclpy, tf2_ros, geometry_msgs, nav_msgs, sensor_msgs
+#   extra pip install:                  websocket-client     (ros_bridge.py's `import websocket`)

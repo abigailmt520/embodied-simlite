@@ -1,0 +1,187 @@
+{
+  "params": {
+    "d": 0.2,
+    "xi": 0.5,
+    "d_lt_xi": true,
+    "N": 60,
+    "radius": 0.0,
+    "persist_frac": 0.5
+  },
+  "scenB_v2": {
+    "physics": {
+      "check": "PHYSICS[x∈free]",
+      "ok": true,
+      "detail": "truth-in-wall frames=0 (should be 0=legal)",
+      "n_illegal": 0
+    },
+    "contract_noise": {
+      "check": "CONTRACT_NOISE[‖o-x‖≤ξ]",
+      "ok": true,
+      "detail": "max‖o-x‖=0.450 ≤ ξ=0.500",
+      "max_err": 0.45000000000000284
+    },
+    "map_point": {
+      "check": "MAP_POINT[o∈M? · M6a]",
+      "ok": true,
+      "detail": "report-point-in-wall frames=0 (>0 to catch; =0=miss)",
+      "n_illegal": 0
+    },
+    "map_continuity": {
+      "check": "MAP_CONTINUITY[seg(o,o)∩M · M6b]",
+      "ok": true,
+      "detail": "report-track self-crossing segments=0 (>0 to catch; =0=miss)",
+      "n_cross": 0
+    },
+    "relational": {
+      "check": "RELATIONAL[seg(x,o) crosses M · both endpoints free]",
+      "ok": false,
+      "detail": "displacement-seg crossing (both endpoints free) frames=60/60 (frac=1.00 >thr 0.50→catch)",
+      "n_cross": 60,
+      "frac": 1.0
+    },
+    "verdict": "IRREDUCIBLE_RELATIONAL"
+  },
+  "scenB_v1_old": {
+    "physics": {
+      "check": "PHYSICS[x∈free]",
+      "ok": true,
+      "detail": "truth-in-wall frames=0 (should be 0=legal)",
+      "n_illegal": 0
+    },
+    "contract_noise": {
+      "check": "CONTRACT_NOISE[‖o-x‖≤ξ]",
+      "ok": false,
+      "detail": "max‖o-x‖=3.500 > ξ=0.500",
+      "max_err": 3.5
+    },
+    "map_point": {
+      "check": "MAP_POINT[o∈M? · M6a]",
+      "ok": false,
+      "detail": "report-point-in-wall frames=8 (>0 to catch; =0=miss)",
+      "n_illegal": 8
+    },
+    "map_continuity": {
+      "check": "MAP_CONTINUITY[seg(o,o)∩M · M6b]",
+      "ok": false,
+      "detail": "report-track self-crossing segments=9 (>0 to catch; =0=miss)",
+      "n_cross": 9
+    },
+    "relational": {
+      "check": "RELATIONAL[seg(x,o) crosses M · both endpoints free]",
+      "ok": true,
+      "detail": "displacement-seg crossing (both endpoints free) frames=20/41 (frac=0.49 ≤thr 0.50→pass)",
+      "n_cross": 20,
+      "frac": 0.4878048780487805
+    },
+    "verdict": "REDUCIBLE_BY_MAP_CONTRACT"
+  },
+  "specificity": {
+    "n_seed": 30,
+    "healthy_frac_mean": 0.10499999999999998,
+    "healthy_frac_max": 0.38333333333333336,
+    "scenB_v2_frac": 1.0,
+    "map_point_fp": 30,
+    "map_cont_fp": 30,
+    "rel_singleframe_fp": 25,
+    "rel_persist_fp": 0,
+    "clean_separation": true
+  },
+  "matrix": {
+    "cols": [
+      "①physics",
+      "②noise",
+      "③M6a map-point",
+      "④M6b self-cross",
+      "⑤relational"
+    ],
+    "healthy": {
+      "physics": true,
+      "contract_noise": false,
+      "map_point": false,
+      "map_continuity": false,
+      "relational": true
+    },
+    "scenB_v1_old": {
+      "physics": true,
+      "contract_noise": false,
+      "map_point": false,
+      "map_continuity": false,
+      "relational": true
+    },
+    "scenB_v2_new": {
+      "physics": true,
+      "contract_noise": true,
+      "map_point": true,
+      "map_continuity": true,
+      "relational": false
+    }
+  },
+  "verdict": {
+    "scenB_v2_irreducible": true,
+    "scenB_v1_reducible_by_map": true,
+    "claim_holds": true
+  },
+  "soundness": {
+    "rows": {
+      "20": {
+        "delta_max": 0.07541934324448325,
+        "clear_min": 0.7191461855399868,
+        "clear_med": 0.7889319321099076,
+        "ratio": 0.09619971867473748,
+        "naive_fp": 0,
+        "rel_fp": 0,
+        "n": 30,
+        "provable_sound": true
+      },
+      "40": {
+        "delta_max": 0.13248040203555175,
+        "clear_min": 0.5863116002339256,
+        "clear_med": 0.7585416861244638,
+        "ratio": 0.18017982090221007,
+        "naive_fp": 1,
+        "rel_fp": 0,
+        "n": 30,
+        "provable_sound": true
+      },
+      "80": {
+        "delta_max": 0.2675020423553054,
+        "clear_min": 0.530292191801897,
+        "clear_med": 0.8285631486313954,
+        "ratio": 0.406197950685082,
+        "naive_fp": 4,
+        "rel_fp": 0,
+        "n": 30,
+        "provable_sound": true
+      },
+      "160": {
+        "delta_max": 1.0973212039271154,
+        "clear_min": 0.007480531844195484,
+        "clear_med": 0.8169669711358004,
+        "ratio": 1.4174474829531205,
+        "naive_fp": 29,
+        "rel_fp": 0,
+        "n": 30,
+        "provable_sound": false
+      },
+      "320": {
+        "delta_max": 5.387934625856567,
+        "clear_min": -7.901087191915697e-16,
+        "clear_med": 0.00748053184419561,
+        "ratio": 5294676.899495676,
+        "naive_fp": 30,
+        "rel_fp": 0,
+        "n": 30,
+        "provable_sound": false
+      }
+    },
+    "xi_ceiling": 0.5,
+    "radius": 0.2,
+    "provable_sound_windows": [
+      20,
+      40,
+      80
+    ],
+    "delta_crosses_clear_min_at": 160,
+    "sound": true
+  }
+}

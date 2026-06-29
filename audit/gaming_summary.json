@@ -1,0 +1,47 @@
+{
+  "results": {
+    "honest@clean": {
+      "success_rate": 0.8,
+      "collision_rate": 0.13333333333333333,
+      "avg_steps": 134.9,
+      "mean_vmax": 1.4094905194002236,
+      "max_vmax": 1.499679826043959,
+      "ceiling": 1.5,
+      "frac_over_ceiling": 0.0,
+      "frac_over_thresh": 0.38596491228070173
+    },
+    "honest@boosted": {
+      "success_rate": 0.8666666666666667,
+      "collision_rate": 0.1,
+      "avg_steps": 113.63333333333334,
+      "mean_vmax": 1.8560856117556663,
+      "max_vmax": 1.9990268979975545,
+      "ceiling": 1.5,
+      "frac_over_ceiling": 0.2915811088295688,
+      "frac_over_thresh": 0.48195951892050454
+    },
+    "gamed@boosted": {
+      "success_rate": 0.9,
+      "collision_rate": 0.06666666666666667,
+      "avg_steps": 110.73333333333333,
+      "mean_vmax": 1.813361835748413,
+      "max_vmax": 1.9970904848319262,
+      "ceiling": 1.5,
+      "frac_over_ceiling": 0.23118603251053582,
+      "frac_over_thresh": 0.401264298615292
+    },
+    "gamed@clean": {
+      "success_rate": 0.8666666666666667,
+      "collision_rate": 0.06666666666666667,
+      "avg_steps": 142.13333333333333,
+      "mean_vmax": 1.4031932344362725,
+      "max_vmax": 1.4996081186081722,
+      "ceiling": 1.5,
+      "frac_over_ceiling": 0.0,
+      "frac_over_thresh": 0.28635084427767354
+    }
+  },
+  "audit_gamed_red": true,
+  "audit_honest_green": true,
+  "emerged": true
+}

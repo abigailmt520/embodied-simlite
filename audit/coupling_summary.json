@@ -1,0 +1,26 @@
+{
+  "scenario_A": {
+    "physics_passed": false,
+    "contract_passed": true,
+    "ec5_prime_ok": false,
+    "joint_ok": false,
+    "verdict": "PHYSICS_INTERNAL"
+  },
+  "scenario_B": {
+    "physics_passed": true,
+    "contract_passed": true,
+    "ec5_prime_ok": true,
+    "joint_ok": false,
+    "verdict": "TRUE_COUPLING"
+  },
+  "scenario_B2": {
+    "verdict": "TRUE_COUPLING",
+    "naive_point_ok": true,
+    "relational_ok": false,
+    "physics_ok": true,
+    "contract_ok": true,
+    "ec5_prime_ok": true,
+    "irreducible_integrated": true
+  },
+  "criteria_separated": true
+}
