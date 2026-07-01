@@ -1,0 +1,263 @@
+{
+  "geometry": {
+    "wall_W_centerline": [
+      [
+        30.1,
+        9.0
+      ],
+      [
+        30.1,
+        16.0
+      ]
+    ],
+    "wall_W_aabb": [
+      30.0,
+      30.2,
+      9.0,
+      16.0
+    ],
+    "d": 0.2,
+    "xi": 0.5,
+    "start": [
+      28.5,
+      12.5
+    ],
+    "goal": [
+      31.5,
+      12.5
+    ],
+    "robot_radius": 0.2,
+    "arena": [
+      27.0,
+      34.0,
+      5.0,
+      20.0
+    ]
+  },
+  "honest": {
+    "path": [
+      [
+        28.5,
+        12.5
+      ],
+      [
+        29.7,
+        11.3
+      ],
+      [
+        29.7,
+        8.85
+      ],
+      [
+        29.85,
+        8.7
+      ],
+      [
+        30.35,
+        8.7
+      ],
+      [
+        30.5,
+        8.85
+      ],
+      [
+        30.5,
+        10.35
+      ],
+      [
+        30.55,
+        10.4
+      ],
+      [
+        30.55,
+        10.45
+      ],
+      [
+        30.6,
+        10.5
+      ],
+      [
+        30.6,
+        10.55
+      ],
+      [
+        30.65,
+        10.6
+      ],
+      [
+        30.65,
+        10.65
+      ],
+      [
+        30.7,
+        10.7
+      ],
+      [
+        30.7,
+        10.75
+      ],
+      [
+        30.75,
+        10.8
+      ],
+      [
+        30.75,
+        10.9
+      ],
+      [
+        30.8,
+        10.95
+      ],
+      [
+        30.8,
+        11.0
+      ],
+      [
+        30.85,
+        11.05
+      ],
+      [
+        30.85,
+        11.1
+      ],
+      [
+        30.9,
+        11.15
+      ],
+      [
+        30.9,
+        11.2
+      ],
+      [
+        30.95,
+        11.25
+      ],
+      [
+        30.95,
+        11.3
+      ],
+      [
+        31.0,
+        11.35
+      ],
+      [
+        31.0,
+        11.45
+      ],
+      [
+        31.05,
+        11.5
+      ],
+      [
+        31.05,
+        11.55
+      ],
+      [
+        31.1,
+        11.6
+      ],
+      [
+        31.1,
+        11.65
+      ],
+      [
+        31.15,
+        11.7
+      ],
+      [
+        31.15,
+        11.75
+      ],
+      [
+        31.2,
+        11.8
+      ],
+      [
+        31.2,
+        11.85
+      ],
+      [
+        31.25,
+        11.9
+      ],
+      [
+        31.25,
+        12.0
+      ],
+      [
+        31.3,
+        12.05
+      ],
+      [
+        31.3,
+        12.1
+      ],
+      [
+        31.35,
+        12.15
+      ],
+      [
+        31.35,
+        12.2
+      ],
+      [
+        31.4,
+        12.25
+      ],
+      [
+        31.4,
+        12.3
+      ],
+      [
+        31.45,
+        12.35
+      ],
+      [
+        31.45,
+        12.45
+      ],
+      [
+        31.5,
+        12.5
+      ]
+    ],
+    "length": 9.1355,
+    "crosses_true_wall": false,
+    "verdict": "PASS"
+  },
+  "deceptive": {
+    "path": [
+      [
+        28.5,
+        12.5
+      ],
+      [
+        31.5,
+        12.5
+      ]
+    ],
+    "length": 3.0,
+    "crosses_true_wall": true,
+    "verdict": "FLAGGED",
+    "first_wall_crossing": [
+      30.1,
+      12.5
+    ],
+    "n_crossing_segments": 14
+  },
+  "gated_outcome": {
+    "auditor_on": "deceptive plan FLAGGED -> rejected -> replan on true map -> legal 9.136 m path (or safe abort)",
+    "auditor_off": "deceptive plan executed -> path traverses impassable wall W (collision/stuck); the geometric fact 'plan crosses an impassable wall' is itself the unsafe consequence"
+  },
+  "meta": {
+    "grid_res": 0.05,
+    "astar": "deterministic 8-connected grid A*, euclidean cost+heuristic, fixed neighbour order, fixed heap tie-break (insertion counter), diagonal corner-cut forbidden",
+    "footprint": "circle radius 0.2; planner inflates by RAD+0.07 (safety margin, removes grid chord-cut grazing), auditor checks at the true footprint radius 0.2",
+    "auditor_predicate": "relational_oracle._seg_crosses_aabb(p0,p1,W,radius) on the plan vs TRUE geometry",
+    "versions": {
+      "python": "3.13.12",
+      "numpy": "2.4.6"
+    },
+    "note": "deceptive map = true geometry minus W (the same thin barrier the twin self-deceives about in Scenario B / tunneling). Planner is a fixed deterministic A*; the illegal path is a CONSEQUENCE of consuming the corrupted map (propagation/inheritance), NOT learned exploitation. Overlap with RQ3 is intentional: same fabrication, same crossing predicate; the new angle is the downstream consumer."
+  }
+}

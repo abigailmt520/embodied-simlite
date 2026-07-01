@@ -139,7 +139,7 @@
 - **🔴 Key honest finding (statistics reveal the false positive that single-point testing missed)**: the naive **M5 (with joint) healthy 320-step false positive 30/30=100%** — not a bug: the collision-uncorrected odom dead reckoning accumulates drift with **trajectory length** (heading integration, ~6m) into the wall geometry (truth EC5′ always green and legitimate) → joint false positive. RQ4/Phase4's single short/arc trajectory happened not to trigger it; 30 diverse trajectories reveal it statistically.
 - **Part D · joint validity envelope (honestly characterized, not tuned)**: healthy joint false positives vs trajectory length — 20 steps 0/30, 40 steps 0/30 (drift 0.14m), 80 steps 1/30, 160 steps 30/30, 320 steps 30/30 (drift 5.8m). **Scenario B (40 steps, fabricated divergence 3.5m ≫ 0.14m honest drift) falls inside the validity envelope → only the joint catches it**. Deployment must use a **short sliding window / drift-budget gate**. It also reveals the structural tension that **C_I (needs long range) and the joint (needs short range) have opposite range requirements**.
 - **Part C · L2/C_I sensitivity boundary (turning the single-point L-2 observation into a curve)**: ① detection rate vs leak magnitude (N=1000): shrink≤0.25 CI lower bound >50%, shrink≥0.6 all miss; ② detection rate vs sample size (shrink=0.25=L-2): **non-monotonic**, 250→50%, 500/1000→83%, 1500→37.5%, 2000→25% (KSG finite-sample bias + a fixed margin: sweet spot ~500-1000; RQ4 used 300 increments, just below the threshold → miss, quantified here as the required sample boundary).
-- **Artifacts**: `audit/run_g5_statistics.py`, `audit/g5_sensitivity.png` (3 panels), `audit/g5_stats.json`. No regression (env unchanged, pure audit layer).
+- **Artifacts**: `audit/run_g5_statistics.py`, `audit/ci_sensitivity.png` (3 panels), `audit/g5_stats.json`. No regression (env unchanged, pure audit layer).
 - Details: [docs/G5-Statistical-Rigor.md](docs/G5-Statistical-Rigor.md).
 
 ### Scenario B topological irreducibility (dev/integrated, pure audit layer; § 5 core-claim defense)
@@ -153,11 +153,11 @@
 - **Wired into the resident suite + regression**: the relational oracle is merged into the `audit_suite.run_suite` joint layer (two complementary paths: naive point check + relational, `JOINT_PERSIST_FRAC=0.5`); `run_coupling_test.py` adds a **Scenario B2 (displacement crosses the wall)** regression — physics 🟢 + contract 🟢 + EC5′ 🟢 + naive point check 🟢 (miss), only **relational 🔴 catch** → `TRUE_COUPLING`, confirming the irreducible self-deception is covered by the resident suite. Scenario A/B verdicts unchanged, contract action1 three gates, no regression; master `7b54625` frozen, .pth zero changes.
 - Details: [docs/ScenB-Irreducibility.md](docs/ScenB-Irreducibility.md) (§8 wiring + regression).
 
-### Cross-Fidelity self-deception audit · D2 energy contrast (dev/integrated, pure new module; rebutting the "toy platform / hand-injection" criticism)
+### Cross-Fidelity self-deception audit · energy contrast (dev/integrated, pure new module; rebutting the "toy platform / hand-injection" criticism)
 - **Claim**: **internal consistency ≠ consistency with reality** — a simplified twin that passes all internal oracles (EC1–EC5) can still diverge in ledger energy from high-fidelity reality at contact.
 - **Setup**: PyBullet (physical reality, truth) and the 2D twin (simplified model, report) run scripted actions in the same process (`g1_pybullet/cross_fidelity.py`; the g1-pybullet env adds gymnasium, **does not pull in torch**). The matched robot is aligned item by item (mass 1 / Izz 0.5 / radius 0.20 / viscous damping −C·v / 24 substeps aligned / effective e≈0.499≈BOUNCE); **the free segment validates clean (|ΔE|≤0.014J, position ≤0.023m = FP floor)**; the only substantive gap = contact physics (2D `v*=0.5` scalar halving + pin-to-wall, no vector reflection/friction vs PyBullet's real contact).
-- **🔴 D2 core contrast**: constant-force wall impact, **the 2D twin EC1–EC5 all PASS (internally self-consistent)**, **the cross-fidelity energy oracle catches the contact divergence** (threshold 5×floor=0.0715J; head_on divergence 0.179J, glancing 0.105J, both FLAG). head_on is the most intuitive: **both pin at x=1.80m, but the twin's ledger phantom-reports 0.032–0.18J kinetic energy while PyBullet really zeros it** (same position, different energy).
-- **D3 envelope**: sweep the incidence angle 0–75° — **the cross-fidelity oracle 5/6 FLAG, the 2D EC 6/6 PASS**; at 75° the wall is not reached = a true negative (not a miss). The **D1 trajectory divergence** (glancing 0.313m) is reducible, honestly flagged (irreducibility left to scenB Table 2).
+- **🔴 Core energy contrast**: constant-force wall impact, **the 2D twin EC1–EC5 all PASS (internally self-consistent)**, **the cross-fidelity energy oracle catches the contact divergence** (threshold 5×floor=0.0715J; head_on divergence 0.179J, glancing 0.105J, both FLAG). head_on is the most intuitive: **both pin at x=1.80m, but the twin's ledger phantom-reports 0.032–0.18J kinetic energy while PyBullet really zeros it** (same position, different energy).
+- **Divergence envelope**: sweep the incidence angle 0–75° — **the cross-fidelity oracle 5/6 FLAG, the 2D EC 6/6 PASS**; at 75° the wall is not reached = a true negative (not a miss). The **trajectory divergence** (glancing 0.313m) is reducible, honestly flagged (irreducibility left to scenB Table 2).
 - **🔴 Honest complication**: the divergence sign varies with geometry (head_on over-reports / glancing under-reports → the real gap is the whole coarse contact model, not simply "missing friction"); the divergence is non-monotonic in angle; emergent (only control + wall + friction set, the divergence is not hand-pinned). **No over-claim of irreducibility.**
 - **Artifacts**: `g1_pybullet/cross_fidelity.py`, `cross_fidelity_energy.{json,png}` (3 panels). 2D platform zero changes, master frozen, .pth zero changes.
 - Details: [docs/CrossFidelity-Energy.md](docs/CrossFidelity-Energy.md).
@@ -188,10 +188,10 @@ python audit/run_leakage_audit.py         # → leakage_compare.png (slip 0.30/0
 # Dual-state coupling stress test report×physics (true/false coupling criterion)
 python audit/run_coupling_test.py         # → coupling_summary.json (Scenario A not-coupling / Scenario B true coupling)
 # G5 statistical rigor (Wilson CI coverage matrix + joint validity envelope + L2/C_I sensitivity curves)
-python audit/run_g5_statistics.py         # → g5_sensitivity.png (3 panels), g5_stats.json
+python audit/run_g5_statistics.py         # → ci_sensitivity.png (3 panels), g5_stats.json
 # Scenario B topological irreducibility (even the map-equipped contract misses v2, only the relational catches; §5 defense)
 python audit/run_scenB_irreducibility.py  # → scenB_irreducibility.{json,png}
-# Cross-Fidelity D2 energy contrast (twin passes self-check vs cross-fidelity oracle catches contact divergence; separate conda env)
+# Cross-Fidelity energy contrast (twin passes self-check vs cross-fidelity oracle catches contact divergence; separate conda env)
 conda run -n g1-pybullet python g1_pybullet/cross_fidelity.py  # → cross_fidelity_energy.{json,png}
 # Contract-layer regression
 python audit/run_action1.py

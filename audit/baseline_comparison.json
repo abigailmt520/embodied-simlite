@@ -1,0 +1,236 @@
+{
+  "meta": {
+    "sklearn": "1.9.0",
+    "numpy": "2.4.6",
+    "seed0": 20260630,
+    "detectors": [
+      "IsolationForest",
+      "LOF(novelty)"
+    ],
+    "features": [
+      "B1",
+      "B2",
+      "B3"
+    ],
+    "n_honest_train": 50,
+    "n_honest_holdout": 30,
+    "n_fault": 30,
+    "per_frame_contamination": 0.05,
+    "fp_target": 0.05,
+    "persist_mechanism": "fraction-of-flagged-frames > gate",
+    "ocsvm_note": "One-Class SVM dropped after stability probe (gamma=1.0 degenerate; cross-fit fault-flag 0.33-0.46); using LOF."
+  },
+  "results": {
+    "ScenarioB_dxi": {
+      "oracle": {
+        "detect": 1.0,
+        "honest_fp": 0.0
+      },
+      "IF-B1": {
+        "detect_fp5": 0.3,
+        "fp_at_fp5": 0.03333333333333333,
+        "detect_fp0": 0.23333333333333334,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B1": {
+        "detect_fp5": 0.9,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 0.8333333333333334,
+        "fp_at_fp0": 0.0
+      },
+      "IF-B2": {
+        "detect_fp5": 0.1,
+        "fp_at_fp5": 0.03333333333333333,
+        "detect_fp0": 0.03333333333333333,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B2": {
+        "detect_fp5": 0.8333333333333334,
+        "fp_at_fp5": 0.03333333333333333,
+        "detect_fp0": 0.7666666666666667,
+        "fp_at_fp0": 0.0
+      },
+      "IF-B3": {
+        "detect_fp5": 0.3,
+        "fp_at_fp5": 0.03333333333333333,
+        "detect_fp0": 0.16666666666666666,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B3": {
+        "detect_fp5": 0.16666666666666666,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 0.03333333333333333,
+        "fp_at_fp0": 0.0
+      }
+    },
+    "ScenarioA_phantom": {
+      "oracle": {
+        "detect": 1.0,
+        "honest_fp": 0.0
+      },
+      "IF-B1": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B1": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.03333333333333333,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      },
+      "IF-B2": {
+        "detect_fp5": 0.9333333333333333,
+        "fp_at_fp5": 0.03333333333333333,
+        "detect_fp0": 0.6,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B2": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      },
+      "IF-B3": {
+        "detect_fp5": 0.9,
+        "fp_at_fp5": 0.0,
+        "detect_fp0": 0.9,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B3": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.03333333333333333,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      }
+    },
+    "CF2_penetration": {
+      "oracle": {
+        "detect": 1.0,
+        "honest_fp": 0.0
+      },
+      "IF-B1": {
+        "detect_fp5": 0.06666666666666667,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 0.0,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B1": {
+        "detect_fp5": 0.03333333333333333,
+        "fp_at_fp5": 0.03333333333333333,
+        "detect_fp0": 0.0,
+        "fp_at_fp0": 0.0
+      },
+      "IF-B2": {
+        "detect_fp5": 0.16666666666666666,
+        "fp_at_fp5": 0.03333333333333333,
+        "detect_fp0": 0.06666666666666667,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B2": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.03333333333333333,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      },
+      "IF-B3": {
+        "detect_fp5": 0.13333333333333333,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 0.03333333333333333,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B3": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      }
+    },
+    "L1_full_leak": {
+      "oracle": {
+        "detect": 1.0,
+        "honest_fp": 0.0
+      },
+      "IF-B1": {
+        "detect_fp5": 0.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 0.0,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B1": {
+        "detect_fp5": 0.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 0.0,
+        "fp_at_fp0": 0.0
+      },
+      "IF-B2": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.03333333333333333,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B2": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      },
+      "IF-B3": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B3": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      }
+    },
+    "L2_partial_leak": {
+      "oracle": {
+        "detect": 1.0,
+        "honest_fp": 0.0
+      },
+      "IF-B1": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B1": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      },
+      "IF-B2": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.03333333333333333,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B2": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      },
+      "IF-B3": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      },
+      "LOF-B3": {
+        "detect_fp5": 1.0,
+        "fp_at_fp5": 0.06666666666666667,
+        "detect_fp0": 1.0,
+        "fp_at_fp0": 0.0
+      }
+    }
+  },
+  "nonspatial_note": "seq-freeze / disconnect-as-live / data-tamper / P-1 energy are a DIFFERENT feature channel (sequence/link metadata, checksum, energy ledger) \u2014 outside B1/B2/B3 spatial features; the oracle catches them via the contract-seq / code-integrity / physics-energy layers (see coverage_matrix.json M5). Not a baseline failure."
+}

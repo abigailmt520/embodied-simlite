@@ -3,7 +3,7 @@
 > Branch `dev/integrated` (Phase4b `57dbca8` + G1 `89ac4e4` + RQ4 `8bcb2cb`, three parallel branches integrated, merge `b562806`).
 > master `7b54625` permanently frozen, zero changes; all `.pth` byte-unchanged; **pure audit layer (env unchanged)**.
 > Numbers from real runs (INV-E); with line numbers (INV-B); negative/boundary results reported as-is, no parameter-tuning.
-> Implementation: `audit/run_g5_statistics.py`. Artifacts: `audit/g5_sensitivity.png` (3 panels), `audit/g5_stats.json`.
+> Implementation: `audit/run_g5_statistics.py`. Artifacts: `audit/ci_sensitivity.png` (3 panels), `audit/g5_stats.json`.
 
 ---
 
@@ -116,7 +116,7 @@ One 2200-step long trajectory per seed; KSG mutual information on its increments
 - too many (1500/2000): KSG finite-sample bias shifts the whole MI estimate down with N (clean 2.08→1.22, leak 2.47→1.83), and the **fixed margin** `MARGIN_NATS` becomes too large relative to the converged gap → detection rate falls back.
 - **This quantifies the root cause of the RQ4 single-point L-2 miss**: RQ4 used ~300 increments, just below the lower edge of the sweet spot (detection rate ~50-60%, CI spanning 50%) — not a framework defect, but the sample size being on the boundary. **Given 500-1000 increments, L-2 is reliably detected** (83%, CI lower bound 64%); this is an honest sample-size boundary, not tuning.
 
-Figure: `audit/g5_sensitivity.png`, three panels (①② C_I sensitivity curves + Wilson CI bands, ③ joint FP–trajectory-length envelope).
+Figure: `audit/ci_sensitivity.png`, three panels (①② C_I sensitivity curves + Wilson CI bands, ③ joint FP–trajectory-length envelope).
 
 ---
 

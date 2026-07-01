@@ -1,6 +1,6 @@
 # -*- coding: utf-8 -*-
 """
-cross_fidelity.py  ——  cross-fidelity self-deception audit · D2 energy contrast (lead) + D1 trajectory + D3 envelope
+cross_fidelity.py  ——  cross-fidelity self-deception audit · energy contrast (lead) + trajectory divergence + divergence envelope
 ================================================================================
 Claim: **internal consistency ≠ consistency with reality**.
   The 2D simplified twin (EmbodiedNavEnv) is self-consistent with its own private energy ledger ΔE=W_act−D_damp−E_contact,
@@ -265,9 +265,9 @@ def main():
     THRESH = 5 * FP_FLOOR
     print(f"\n  cross-fidelity energy-oracle threshold = 5×free-flight floor = 5×{FP_FLOOR:.3e} = {THRESH:.3e} J")
 
-    # —— Step 2 · D2 energy contrast (PRIMARY): head-on (model gap) + glancing (friction gap) ——
+    # —— Step 2 · energy contrast (PRIMARY): head-on (model gap) + glancing (friction gap) ——
     print("\n" + "=" * 84)
-    print("  Step 2 · D2 energy contrast (same-control dual run; twin passes its own EC vs cross-fidelity oracle FLAG)")
+    print("  Step 2 · energy contrast (same-control dual run; twin passes its own EC vs cross-fidelity oracle FLAG)")
     print("=" * 84)
     # vertical wall x∈[3.0,3.2]; the robot starts at x=0, accelerates then coasts into the wall.
     wall = (2.0, 2.2, -3.5, 3.5)
@@ -290,16 +290,16 @@ def main():
               f"{'catches divergence from reality' if s['detected'] else 'judges consistent'} → internal consistency ≠ consistency with reality")
     out["d2"] = d2
 
-    # —— Step 3 · D1 trajectory divergence (SECONDARY, reducible) ——
+    # —— Step 3 · trajectory divergence (SECONDARY, reducible) ——
     print("\n" + "=" * 84)
-    print("  Step 3 · D1 trajectory divergence (reducible: large-magnitude, caught by contract ‖x_2d−x_pb‖ over budget; not irreducible)")
+    print("  Step 3 · trajectory divergence (reducible: large-magnitude, caught by contract ‖x_2d−x_pb‖ over budget; not irreducible)")
     print("=" * 84)
     for name in d2:
         print(f"  [{name}] post-contact trajectory diff max={d2[name]['dpos_post_m']:.3f}m (2D wall model vs PyBullet true contact, emergent divergence)")
 
-    # —— Step 4 · D3 divergence envelope (SECONDARY): sweep the incidence angle ——
+    # —— Step 4 · divergence envelope (SECONDARY): sweep the incidence angle ——
     print("\n" + "=" * 84)
-    print("  Step 4 · D3 divergence envelope (sweep incidence angle: head-on → glancing; energy divergence vs contact geometry)")
+    print("  Step 4 · divergence envelope (sweep incidence angle: head-on → glancing; energy divergence vs contact geometry)")
     print("=" * 84)
     print(f"  {'angle°':<8}{'KE@contact':<11}{'FP floor':<12}{'contact div':<13}{'2D EC':<8}{'cross-fid oracle'}")
     env_rows = []
@@ -363,12 +363,12 @@ def make_figure(out, path):
         ax0.set_xlabel("time (s)"); ax0.set_ylabel("mechanical energy (J)")
         ax0.set_title("① Head-on: after contact the twin ledger shows phantom energy\nvs reality's near-zero (same position x=1.80 m, energy diverges)")
         ax0.legend(fontsize=8); ax0.grid(alpha=0.3)
-    # ② D3 envelope
+    # ② divergence envelope
     ax1.plot(angs, [r["contact_div_J"] for r in rows], "o-", color="#d33", label="contact energy divergence |ΔE|")
     ax1.plot(angs, [r["fp_floor_J"] for r in rows], "s--", color="#2a7", label="free-flight FP floor")
     ax1.axhline(5 * max(out["freespace"]["E_abs_max"], 0.005), ls=":", color="#888", label="cross-fidelity threshold (5× floor)")
     ax1.set_xlabel("incidence angle (°); 0 = head-on, large = glancing"); ax1.set_ylabel("|E_2d − E_pb| (J)")
-    ax1.set_title("② D3 cross-fidelity energy-divergence envelope\n(75° = no wall contact → true negative)"); ax1.legend(fontsize=8); ax1.grid(alpha=0.3)
+    ax1.set_title("② cross-fidelity energy-divergence envelope\n(75° = no wall contact → true negative)"); ax1.legend(fontsize=8); ax1.grid(alpha=0.3)
     ax1.set_yscale("symlog", linthresh=1e-3)
     # ③ core comparison bars
     cats = ["internal self-check\nEC1–EC5", "cross-fidelity\nenergy oracle"]
@@ -380,8 +380,6 @@ def make_figure(out, path):
     ax2.set_xticks(x); ax2.set_xticklabels(cats, fontsize=9)
     ax2.set_ylabel(f"number of incidence angles ({len(rows)} total)")
     ax2.set_title("③ internal consistency ≠ consistency with reality\n(twin passes self-check / cross-fidelity oracle catches divergence)"); ax2.legend(fontsize=8)
-    fig.suptitle("Cross-Fidelity D2: Simplified twin passes all internal ECs, yet its energy ledger diverges from PyBullet reality at contact",
-                 fontsize=12, fontweight="bold")
     fig.tight_layout()
     fig.savefig(path, dpi=150, bbox_inches="tight")
 

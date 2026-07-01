@@ -1,4 +1,4 @@
-# Cross-Fidelity self-deception audit · D2 energy contrast (lead) + D1/D3
+# Cross-Fidelity self-deception audit · energy contrast (lead) + trajectory divergence / divergence envelope
 
 > Thesis: **internal consistency ≠ consistency with reality**. A simplified digital twin that **passes all of its internal physics oracles (EC1–EC5)** can still, at every contact, have an **energy ledger that diverges from high-fidelity physical reality** — so one must audit against reality, not merely check internal self-consistency.
 >
@@ -25,7 +25,7 @@
 
 ---
 
-## 1. D2 energy contrast (PRIMARY) — the core comparison
+## 1. Energy contrast (PRIMARY) — the core comparison
 
 The same constant-force control sequence (B-mode `[0.8,0.8]`, steady-state v_ss=1.2 < `V_PHYS_MAX_B`=1.65 → EC3 does not false-flag) drives both sides; the robot accelerates and hits a wall. **Force is kept on at contact → head-on = pressing the wall, glancing = sustained sliding along the wall.**
 Cross-fidelity energy-oracle threshold = **5×free-flight floor = 5×0.0143 = 0.0715 J**.
@@ -53,10 +53,10 @@ In free flight (steps 15–18) the two energies agree (|ΔE|~1e-3) and positions
 
 ---
 
-## 3. D1 trajectory divergence (SECONDARY, reducible) + D3 envelope (SECONDARY)
+## 3. Trajectory divergence (SECONDARY, reducible) + divergence envelope (SECONDARY)
 
-- **D1**: post-contact trajectory diff — **glancing_45 = 0.313 m** (PyBullet slides along the wall, the 2D scalar halving, emergent divergence); **head_on = 0.000 m** (both pin at the wall face x=1.80 m → **positions reconverge, only energy diverges** — head-on is a pure-energy self-deception of "same position, different energy"). D1 is a **reducible** divergence (large-magnitude, catchable by the contract `‖x_2d−x_pb‖` over budget); **flagged honestly as not irreducible** (irreducibility evidence stays in scenB Table 2).
-- **D3 envelope (sweep incidence angle 0–75°)**:
+- **Trajectory divergence**: post-contact trajectory diff — **glancing_45 = 0.313 m** (PyBullet slides along the wall, the 2D scalar halving, emergent divergence); **head_on = 0.000 m** (both pin at the wall face x=1.80 m → **positions reconverge, only energy diverges** — head-on is a pure-energy self-deception of "same position, different energy"). This is a **reducible** divergence (large-magnitude, catchable by the contract `‖x_2d−x_pb‖` over budget); **flagged honestly as not irreducible** (irreducibility evidence stays in scenB Table 2).
+- **Divergence envelope (sweep incidence angle 0–75°)**:
 
 | Incidence angle | 0° | 15° | 30° | 45° | 60° | 75° |
 |---|---|---|---|---|---|---|
@@ -75,9 +75,9 @@ In free flight (steps 15–18) the two energies agree (|ΔE|~1e-3) and positions
 
 ---
 
-## 5. 🔴 Honest assessment (does D2 work cleanly + complications)
+## 5. 🔴 Honest assessment (does the energy contrast work cleanly + complications)
 
-**D2 works cleanly**: the core comparison holds, the FP floor is clean and separable, the divergence is emergent. But there are the following complications, reported honestly:
+**The energy contrast works cleanly**: the core comparison holds, the FP floor is clean and separable, the divergence is emergent. But there are the following complications, reported honestly:
 
 1. **The "sign" of the divergence varies with geometry** (not simply "the twin lacks friction → the twin has lower energy"):
    - head_on: the twin **over-reports** (hallucinated 0.032 vs reality 0); glancing: the twin **under-reports** (0.032 vs reality 0.081). The real gap is **the entire crude contact model** (scalar speed halving + pinning, no vector reflection/friction); "lacks friction" is only one part of it. The cross-fidelity oracle catches **|divergence|**, sign-independent — the thesis doesn't depend on the sign, but the specific phrasing "lacks friction" **should not be used alone**.
@@ -86,7 +86,7 @@ In free flight (steps 15–18) the two energies agree (|ΔE|~1e-3) and positions
 4. **The two trajectories diverge after contact**, so the contact-segment energy comparison conflates "ledger error + trajectory difference" — both stem from the same contact-fidelity gap; the free-flight floor proves the pre-contact match.
 5. **Matching residuals** (integration scheme, unicycle-vs-free-body) leave a ~0.01 J / 0.02 m free-flight floor — explicitly characterized and used as the threshold baseline, not hidden.
 
-**Overall**: D2 holds and is clean — **a simplified twin passes all of its internal EC1–EC5, yet its energy ledger emergently diverges from PyBullet reality at contact, caught by the cross-fidelity oracle.** This directly answers the "2D toy platform / hand-injected fault" criticism: the fault (divergence) emerges from the **real fidelity gap** between an **independent third-party high-fidelity engine** and the simplified model, not from our design. **No over-claim of irreducibility** (D1 is reducible, flagged honestly; irreducibility evidence stays in scenB Table 2).
+**Overall**: the energy contrast holds and is clean — **a simplified twin passes all of its internal EC1–EC5, yet its energy ledger emergently diverges from PyBullet reality at contact, caught by the cross-fidelity oracle.** This directly answers the "2D toy platform / hand-injected fault" criticism: the fault (divergence) emerges from the **real fidelity gap** between an **independent third-party high-fidelity engine** and the simplified model, not from our design. **No over-claim of irreducibility** (the trajectory divergence is reducible, flagged honestly; irreducibility evidence stays in scenB Table 2).
 
 ---
 
@@ -94,4 +94,4 @@ In free flight (steps 15–18) the two energies agree (|ΔE|~1e-3) and positions
 - A **per-quantity decomposition of true friction dissipation** during sustained sliding (via `getContactPoints` friction impulses) not broken out; this experiment uses total mechanical-energy divergence (sufficient).
 - Integrating the cross-fidelity oracle into the resident `audit_suite` (this experiment is a standalone harness).
 - A trained policy replacing scripted actions (D5, bonus): `train_agent.py` + the existing `ppo_embodied_agent_maze.pth` are available, not on the critical path, not done.
-- An opportunistic relational demo (Step 5): D1/D3 did not naturally produce a "small-metric, topological" case → **no scene engineering done** (per discipline).
+- An opportunistic relational demo (Step 5): the trajectory divergence / divergence envelope did not naturally produce a "small-metric, topological" case → **no scene engineering done** (per discipline).

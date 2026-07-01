@@ -87,7 +87,7 @@ Each line below maps a committed script to the table/figure it produces. Detecti
 
 ```bash
 # RQ1 — detection recall (30/30, Wilson 95% CI) + Figure 2 (C_I sensitivity, joint envelope)
-python audit/run_g5_statistics.py          # → audit/g5_stats.json, audit/g5_sensitivity.png
+python audit/run_g5_statistics.py          # → audit/g5_stats.json, audit/ci_sensitivity.png
 
 # RQ2 Table 1 — coverage matrix (10 instances × 5 methods; M4 naive-parallel misses Scenario B, only M5 catches)
 python audit/run_coverage_matrix.py        # → audit/coverage_matrix.json, audit/coverage_matrix.png
@@ -96,7 +96,7 @@ python audit/run_coverage_matrix.py        # → audit/coverage_matrix.json, aud
 python audit/run_scenB_irreducibility.py   # → audit/scenB_irreducibility.json, audit/scenB_irreducibility.png
 
 # Figure 1 — healthy false-positive envelope of the relational oracle (built from the scenB experiment's data)
-python audit/make_fig1_fp_envelope.py      # → audit/fig1_fp_envelope.png
+python audit/make_fig1_fp_envelope.py      # → audit/fp_envelope.png
 
 # Resident audit suite — coupling-label separation + Scenario B2 (displacement-crossing) integration regression
 python audit/run_coupling_test.py          # → audit/coupling_summary.json

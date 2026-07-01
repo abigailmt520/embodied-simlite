@@ -19,7 +19,7 @@ import pb_helpers as H
 
 
 # ── pathology 1: energy injection (elastic bounce, engine numerical gain) ──────────────────────────
-def pathology_energy_injection(dt=1.0 / 120.0):
+def pathology_energy_injection(dt=1.0 / 120.0, record=None):
     H.connect(dt=dt)
     pl = p.loadURDF("plane.urdf"); p.changeDynamics(pl, -1, restitution=1.0)
     ball = H.add_ball(1.0, [0, 0, 2.0], 0.1, damping=0.0)
@@ -32,6 +32,22 @@ def pathology_energy_injection(dt=1.0 / 120.0):
     print(f"\n[pathology 1 · energy injection] elastic bounce (e=1, conservative) dt={1/dt:.0f}Hz: E0={E[0]:.2f} → max={max(E):.2f} J")
     print(f"  energy audit (conservation upper bound): {'🔴red caught' if not ok else '🟢green missed'} — {det}")
     print(f"  🔴 non-circular: the injection comes from PyBullet's discrete contact solver (e=1 should conserve), not hand-set by us.")
+    # ── optional persistence (adds saving only; does NOT alter the computation above) ──
+    # If a `record` dict is supplied, store the per-step mechanical-energy series (KE+PE)
+    # plus the EC1 conservation upper bound. The bound is taken straight from the audit's
+    # own `excess` (excess == max(E) − bound), so it is exactly the line the oracle used.
+    if record is not None:
+        E0 = float(E[0]); E_peak = float(max(E)); bound = E_peak - float(excess)
+        first_breach = next((i for i, e in enumerate(E) if e > bound), None)
+        record[f"dt_1_{int(round(1.0 / dt))}"] = {
+            "dt": dt, "hz": int(round(1.0 / dt)), "n_steps": len(E),
+            "E0_J": E0, "E_peak_J": E_peak, "EC1_bound_J": bound, "excess_J": float(excess),
+            "pct_increase": (E_peak - E0) / E0 * 100.0,
+            "first_breach_step": first_breach,
+            "first_breach_time_s": (first_breach * dt) if first_breach is not None else None,
+            "audit_red": bool(not ok),
+            "E_series_J": [float(x) for x in E],   # per-step mechanical energy (KE+PE)
+        }
     return (not ok)
 
 

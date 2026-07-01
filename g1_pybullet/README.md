@@ -14,13 +14,13 @@ Note: `cross_fidelity.py` additionally needs `gymnasium` in the env (`conda run 
 conda run -n g1-pybullet python g1_pybullet/g1a_baseline.py     # healthy baseline + noise floor (checkpoint 1)
 conda run -n g1-pybullet python g1_pybullet/g1b_tunneling.py    # native high-speed tunneling → physics audit (checkpoint 2 · crown jewel)
 conda run -n g1-pybullet python g1_pybullet/g1c_pathologies.py  # energy injection + contract layer + joint (3D)
-conda run -n g1-pybullet python g1_pybullet/cross_fidelity.py   # Cross-Fidelity D2 energy contrast (twin passes self-check vs cross-fidelity oracle)
+conda run -n g1-pybullet python g1_pybullet/cross_fidelity.py   # Cross-Fidelity energy contrast (twin passes self-check vs cross-fidelity oracle)
 ```
 
 ## Files
 - `pb_helpers.py` — scenes / twin reporter (OdomReporter) / invariants / audit-reuse layer (incl. the swept EC5′, energy-conservation upper bound).
 - `g1a_baseline.py` / `g1b_tunneling.py` / `g1c_pathologies.py` — the three stages.
-- `cross_fidelity.py` — **Cross-Fidelity D2 energy contrast**: PyBullet (reality) vs the 2D simplified twin (report) run in the same process, proving "internal consistency ≠ consistency with reality" (the twin passes EC1–EC5, while the cross-fidelity oracle catches the ledger-energy divergence at contact). See `../docs/CrossFidelity-Energy.md`.
+- `cross_fidelity.py` — **Cross-Fidelity energy contrast**: PyBullet (reality) vs the 2D simplified twin (report) run in the same process, proving "internal consistency ≠ consistency with reality" (the twin passes EC1–EC5, while the cross-fidelity oracle catches the ledger-energy divergence at contact). See `../docs/CrossFidelity-Energy.md`.
 
 ## Key results (see ../docs/G1-PyBullet-Generalization.md)
 - Engine energy noise floor ≈ 8.3e-4 J/step (the audit threshold must be > this).

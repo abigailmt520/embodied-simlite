@@ -12,7 +12,7 @@ Lift single-run/single-point detection/false-positive results to a submittable s
    report negative/boundary results as-is.
 
 Run: python audit/run_g5_statistics.py
-Artifacts: audit/g5_sensitivity.png, audit/g5_stats.json
+Artifacts: audit/ci_sensitivity.png, audit/g5_stats.json
 """
 
 import json
@@ -344,11 +344,8 @@ def make_fig(cs, cn, dr):
     ax3.axvline(40, ls="--", color="#37a", label="Scenario B regime (40 steps, valid)")
     ax3.set_xlabel("trajectory length (steps)"); ax3.set_ylabel("healthy joint FP rate"); ax3.set_ylim(-0.05, 1.05)
     ax3.set_title("③ joint FP vs trajectory length (operating envelope)"); ax3.legend(fontsize=8); ax3.grid(alpha=0.3)
-    fig.suptitle("G5 · Statistical envelope characterization (Wilson 95% CI bands): "
-                 "①② CI sensitivity curve (point L-2 → curve)  ③ joint operating envelope",
-                 fontsize=12, fontweight="bold")
     fig.tight_layout()
-    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "g5_sensitivity.png")
+    out = os.path.join(os.path.dirname(os.path.abspath(__file__)), "ci_sensitivity.png")
     fig.savefig(out, dpi=150, bbox_inches="tight")
     print(f"\n  [OK] sensitivity curve figure: {out}")
 

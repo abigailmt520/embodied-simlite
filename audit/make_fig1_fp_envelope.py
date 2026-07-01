@@ -14,7 +14,7 @@ Triptych (matching the paper caption):
    Note: the naive/δ numbers the paper §7.4 text currently cites come from a different experiment g5_stats.json part_d (different seeds), differing slightly from this figure (the self-consistent source)
    at L=40/80/160 — see the report; this figure faithfully uses scenB part(e).
 
-Run: python3 audit/make_fig1_fp_envelope.py   → audit/fig1_fp_envelope.png
+Run: python3 audit/make_fig1_fp_envelope.py   → audit/fp_envelope.png
 """
 
 import json
@@ -128,11 +128,8 @@ def main():
     ax3.legend(h1 + h2, l1 + l2, fontsize=7.5, loc="center left")
     ax3.set_title("③ Healthy FP rate vs trajectory length\nnaïve rises steeply as δ_max overtakes clearance; gated flat at 0")
 
-    fig.suptitle("Figure 1 · Healthy false-positive envelope of the relational oracle — "
-                 "Thin wall (d<ξ): persistence separation + drift-budget gating for soundness",
-                 fontsize=12.5, fontweight="bold")
     fig.tight_layout()
-    out = os.path.join(HERE, "fig1_fp_envelope.png")
+    out = os.path.join(HERE, "fp_envelope.png")
     fig.savefig(out, dpi=150, bbox_inches="tight")
     print(f"[OK] {out}")
     # also report the actual numbers used in this figure (for audit)
